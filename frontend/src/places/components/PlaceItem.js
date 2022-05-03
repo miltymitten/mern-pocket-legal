@@ -74,7 +74,7 @@ const PlaceItem = props => {
         }
       >
         <p>
-          Do you want to proceed and delete this place? Please note that it
+          Do you want to proceed and delete this Question? Please note that it
           can't be undone thereafter.
         </p>
       </Modal>
@@ -85,9 +85,13 @@ const PlaceItem = props => {
             <img src={props.image} alt={props.title} />
           </div>
           <div className="place-item__info">
+            <h2>{props.firstName}</h2>
+            <h2>{props.lastName}</h2>
+            <h2>{props.contact}</h2>
             <h2>{props.title}</h2>
             <p>{props.description}</p>
             <br></br>
+            <h2>{props.typeofLaw}</h2>
             <h3>{props.courtName}</h3>
             <h3>{props.address}</h3>
           </div>

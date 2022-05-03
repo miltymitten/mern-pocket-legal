@@ -65,7 +65,7 @@ const createPlace = async (req, res, next) => {
     );
   }
 
-  const { title,courtName, description, address, creator } = req.body;
+  const { firstName,lastName,contact,title,description,typeofLaw,courtName,address, creator } = req.body;
 
   let coordinates;
   try {
@@ -75,13 +75,17 @@ const createPlace = async (req, res, next) => {
   }
 
   const createdPlace = new Place({
+    firstName,
+    lastName,
+    contact,
     title,
-    courtName,
     description,
+    typeofLaw,
+    courtName,
     address,
     location: coordinates,
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Empire_State_Building_%28aerial_view%29.jpg/400px-Empire_State_Building_%28aerial_view%29.jpg', // => File Upload module, will be replaced with real image url
+      'https://upload.wikimedia.org/wikipedia/commons/8/8a/Wikinews_banner_sea-blue.png', // => File Upload module, will be replaced with real image url
     creator
   });
 
@@ -112,7 +116,7 @@ const createPlace = async (req, res, next) => {
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
-      'Creating place failed, please try again.',
+      'Creating question failed, please try again.',
       500
     );
     return next(error);
@@ -129,7 +133,7 @@ const updatePlace = async (req, res, next) => {
     );
   }
 
-  const { title, courtName, description } = req.body;
+  const { firstName, lastName, contact, title,description,typeofLaw, courtName} = req.body;
   const placeId = req.params.pid;
 
   let place;
@@ -137,21 +141,24 @@ const updatePlace = async (req, res, next) => {
     place = await Place.findById(placeId);
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not update place.',
+      'Something went wrong, could not update question.',
       500
     );
     return next(error);
   }
-
+  place.firstName = firstName;
+  place.lastName = lastName;
+  place.contact = contact;
   place.title = title;
-  place.courtName = courtName;
   place.description = description;
+  place.typeofLaw = typeofLaw;
+  place.courtName = courtName;
 
   try {
     await place.save();
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not update place.',
+      'Something went wrong, could not update question.',
       500
     );
     return next(error);
@@ -188,7 +195,7 @@ const deletePlace = async (req, res, next) => {
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not delete place.',
+      'Something went wrong, could not delete question.',
       500
     );
     return next(error);
