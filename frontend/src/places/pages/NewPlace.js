@@ -19,7 +19,23 @@ const NewPlace = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
+      firstName: {
+        value: '',
+        isValid: false
+      },
+      lastName: {
+        value: '',
+        isValid: false
+      },
+      contact: {
+        value: '',
+        isValid: false
+      },
       title: {
+        value: '',
+        isValid: false
+      },
+      description: {
         value: '',
         isValid: false
       },
@@ -27,7 +43,7 @@ const NewPlace = () => {
         value: '',
         isValid: false
       },
-      description: {
+      typeofLaw: {
         value: '',
         isValid: false
       },
@@ -48,9 +64,13 @@ const NewPlace = () => {
         'http://localhost:5000/api/places',
         'POST',
         JSON.stringify({
+          firstName: formState.inputs.firstName.value,
+          lastName: formState.inputs.lastName.value,
+          contact: formState.inputs.contact.value,
           title: formState.inputs.title.value,
-          courtName: formState.inputs.courtName.value,
           description: formState.inputs.description.value,
+          typeofLaw: formState.inputs.typeofLaw.value,
+          courtName: formState.inputs.courtName.value,
           address: formState.inputs.address.value,
           creator: auth.userId
         }),
@@ -66,6 +86,33 @@ const NewPlace = () => {
       <form className="place-form" onSubmit={placeSubmitHandler}>
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
+          id="firstName"
+          element="input"
+          type="text"
+          label="First Name"
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText="Please enter a valid First Name."
+          onInput={inputHandler}
+        />
+        <Input
+          id="lastName"
+          element="input"
+          type="text"
+          label="Last Name"
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText="Please enter a valid Last Name."
+          onInput={inputHandler}
+        />
+        <Input
+          id="contact"
+          element="input"
+          type="text"
+          label="Email"
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText="Please enter a valid Email Adress."
+          onInput={inputHandler}
+        />
+        <Input
           id="title"
           element="input"
           type="text"
@@ -75,20 +122,29 @@ const NewPlace = () => {
           onInput={inputHandler}
         />
         <Input
+          id="description"
+          element="textarea"
+          label="Description"
+          validators={[VALIDATOR_MINLENGTH(5)]}
+          errorText="Please enter a valid description (at least 5 characters)."
+          onInput={inputHandler}
+        />
+        <Input
+          id="typeofLaw"
+          element="input"
+          type="text"
+          label="Law Category"
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText="Please enter a valid law category."
+          onInput={inputHandler}
+        />
+        <Input
           id="courtName"
           element="input"
           type="text"
           label="Court Name"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid Court Name."
-          onInput={inputHandler}
-        />
-        <Input
-          id="description"
-          element="textarea"
-          label="Description"
-          validators={[VALIDATOR_MINLENGTH(5)]}
-          errorText="Please enter a valid description (at least 5 characters)."
           onInput={inputHandler}
         />
         <Input

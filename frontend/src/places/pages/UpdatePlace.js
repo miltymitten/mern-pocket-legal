@@ -24,15 +24,31 @@ const UpdatePlace = () => {
 
   const [formState, inputHandler, setFormData] = useForm(
     {
+      firstName: {
+        value: '',
+        isValid: false
+      },
+      lastName: {
+        value: '',
+        isValid: false
+      },
+      contact: {
+        value: '',
+        isValid: false
+      },
       title: {
         value: '',
         isValid: false
       },
-      courtName: {
+      description: {
         value: '',
         isValid: false
       },
-      description: {
+      typeofLaw: {
+        value: '',
+        isValid: false
+      },
+      courtName: {
         value: '',
         isValid: false
       }
@@ -49,16 +65,32 @@ const UpdatePlace = () => {
         setLoadedPlace(responseData.place);
         setFormData(
           {
+            firstName: {
+              value: responseData.place.firstName,
+              isValid: true
+            },
+            lastName: {
+              value: responseData.place.lastName,
+              isValid: true
+            },
+            contact: {
+              value: responseData.place.contact,
+              isValid: true
+            },
             title: {
               value: responseData.place.title,
               isValid: true
             },
-            courtName: {
-              value: responseData.place.courtName,
-              isValid: true
-            },
             description: {
               value: responseData.place.description,
+              isValid: true
+            },
+            typeofLaw: {
+              value: responseData.place.typeofLaw,
+              isValid: true
+            },
+            courtName: {
+              value: responseData.place.courtName,
               isValid: true
             }
           },
@@ -77,9 +109,13 @@ const UpdatePlace = () => {
         `http://localhost:5000/api/places/${placeId}`,
         'PATCH',
         JSON.stringify({
+          firstName: formState.inputs.firstName.value,
+          lastName: formState.inputs.lastName.value,
+          contact: formState.inputs.contact.value,
           title: formState.inputs.title.value,
-          courtName: formState.inputs.courtName.value,
-          description: formState.inputs.description.value
+          description: formState.inputs.description.value,
+          typeofLaw: formState.inputs.typeofLaw.value,
+          courtName: formState.inputs.courtName.value
         }),
         {
           'Content-Type': 'application/json'
@@ -113,12 +149,66 @@ const UpdatePlace = () => {
       {!isLoading && loadedPlace && (
         <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
           <Input
+            id="firstName"
+            element="input"
+            type="text"
+            label="First Name"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid First Name."
+            onInput={inputHandler}
+            initialValue={loadedPlace.title}
+            initialValid={true}
+          />
+          <Input
+            id="lastName"
+            element="input"
+            type="text"
+            label="Last Name"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid Last Name."
+            onInput={inputHandler}
+            initialValue={loadedPlace.title}
+            initialValid={true}
+          />
+          <Input
+            id="contact"
+            element="input"
+            type="text"
+            label="Email"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid Email Address."
+            onInput={inputHandler}
+            initialValue={loadedPlace.title}
+            initialValid={true}
+          />
+          <Input
             id="title"
             element="input"
             type="text"
             label="Title"
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid title."
+            onInput={inputHandler}
+            initialValue={loadedPlace.title}
+            initialValid={true}
+          />
+          <Input
+            id="description"
+            element="textarea"
+            label="Description"
+            validators={[VALIDATOR_MINLENGTH(5)]}
+            errorText="Please enter a valid description (min. 5 characters)."
+            onInput={inputHandler}
+            initialValue={loadedPlace.description}
+            initialValid={true}
+          />
+          <Input
+            id="typeofLaw"
+            element="input"
+            type="text"
+            label="Law Category"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid Law Category."
             onInput={inputHandler}
             initialValue={loadedPlace.title}
             initialValid={true}
@@ -132,16 +222,6 @@ const UpdatePlace = () => {
             errorText="Please enter a valid Court."
             onInput={inputHandler}
             initialValue={loadedPlace.courtName}
-            initialValid={true}
-          />
-          <Input
-            id="description"
-            element="textarea"
-            label="Description"
-            validators={[VALIDATOR_MINLENGTH(5)]}
-            errorText="Please enter a valid description (min. 5 characters)."
-            onInput={inputHandler}
-            initialValue={loadedPlace.description}
             initialValid={true}
           />
           <Button type="submit" disabled={!formState.isValid}>

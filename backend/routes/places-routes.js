@@ -12,9 +12,21 @@ router.get('/user/:uid', placesControllers.getPlacesByUserId);
 router.post(
   '/',
   [
+    check('firstName')
+      .not()
+      .isEmpty(),
+    check('lastName')
+      .not()
+      .isEmpty(),
+    check('contact')
+      .not()
+      .isEmpty(),    
     check('title')
       .not()
       .isEmpty(),
+    check('typeofLaw')
+      .not()
+      .isEmpty(),  
     check('courtName')
       .not()
       .isEmpty(),
@@ -29,7 +41,19 @@ router.post(
 router.patch(
   '/:pid',
   [
+    check('firstName')
+      .not()
+      .isEmpty(),
+    check('lastName')
+      .not()
+      .isEmpty(),
+    check('contact')
+      .not()
+      .isEmpty(),
     check('title')
+      .not()
+      .isEmpty(),
+    check('typeofLaw')
       .not()
       .isEmpty(),
     check('courtName')
