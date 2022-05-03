@@ -5,6 +5,26 @@
   width: 90%;
   max-width: 50rem;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   flex-wrap: wrap;
+}
+
+.users-list-container {
+  width: 90%;
+  max-width: 58rem;
+  margin: 0rem auto;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.users-list-title {
+  text-align: left;
+  margin: 10px 10px;
+  padding: 5px;
+  width: 78%;
+  max-width: 70rem;
+  flex-wrap: wrap;
+  /* background: #88c4fc; */
+  /* border-radius: 20px; */
+  color: #292929;
 }

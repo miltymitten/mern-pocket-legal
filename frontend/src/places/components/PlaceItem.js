@@ -85,11 +85,11 @@ const PlaceItem = props => {
             <img src={props.image} alt={props.title} />
           </div>
           <div className="place-item__info">
-            <h2>{props.firstName}</h2>
-            <h2>{props.lastName}</h2>
-            <h2>{props.contact}</h2>
             <h2>{props.title}</h2>
             <p>{props.description}</p>
+            <h3>{props.firstName}</h3>
+            <h3>{props.lastName}</h3>
+            <h3>{props.contact}</h3>
             <br></br>
             <h2>{props.typeofLaw}</h2>
             <h3>{props.courtName}</h3>
