@@ -156,7 +156,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid First Name."
             onInput={inputHandler}
-            initialValue={loadedPlace.title}
+            initialValue={loadedPlace.firstName}
             initialValid={true}
           />
           <Input
@@ -167,7 +167,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid Last Name."
             onInput={inputHandler}
-            initialValue={loadedPlace.title}
+            initialValue={loadedPlace.lastName}
             initialValid={true}
           />
           <Input
@@ -178,7 +178,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid Email Address."
             onInput={inputHandler}
-            initialValue={loadedPlace.title}
+            initialValue={loadedPlace.contact}
             initialValid={true}
           />
           <Input
@@ -210,7 +210,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid Law Category."
             onInput={inputHandler}
-            initialValue={loadedPlace.title}
+            initialValue={loadedPlace.typeofLaw}
             initialValid={true}
           />
           <Input
