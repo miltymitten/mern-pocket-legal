@@ -85,13 +85,19 @@ const PlaceItem = props => {
             <img src={props.image} alt={props.title} />
           </div>
           <div className="place-item__info">
-            <h2>{props.title}</h2>
-            <p>{props.description}</p>
+            <h1>Great Question.</h1>
+            <br></br>
+            <h2>Contact:</h2>
             <h3>{props.firstName}</h3>
             <h3>{props.lastName}</h3>
             <h3>{props.contact}</h3>
             <br></br>
-            <h2>{props.typeofLaw}</h2>
+            <h2>Your Legal Question:</h2>
+            <h3>{props.title}</h3>
+            <h3>{props.description}</h3>
+            <br></br>
+            <h2>Provide Your Nearest Court House:</h2>
+            <h3>{props.typeofLaw}</h3>
             <h3>{props.courtName}</h3>
             <h3>{props.address}</h3>
           </div>
