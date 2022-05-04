@@ -90,6 +90,7 @@ const NewPlace = () => {
           element="input"
           type="text"
           label="First Name"
+          placeholder = "Enter your First Name"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid First Name."
           onInput={inputHandler}
@@ -99,6 +100,7 @@ const NewPlace = () => {
           element="input"
           type="text"
           label="Last Name"
+          placeholder = "Enter your Last Name"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid Last Name."
           onInput={inputHandler}
@@ -108,6 +110,7 @@ const NewPlace = () => {
           element="input"
           type="text"
           label="Email"
+          placeholder = "Enter your Email Address"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid Email Adress."
           onInput={inputHandler}
@@ -116,7 +119,8 @@ const NewPlace = () => {
           id="title"
           element="input"
           type="text"
-          label="Title"
+          label="Legal Question"
+          placeholder = "Enter your question"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid title."
           onInput={inputHandler}
@@ -124,7 +128,8 @@ const NewPlace = () => {
         <Input
           id="description"
           element="textarea"
-          label="Description"
+          label="Extended Description"
+          placeholder = "Enter a detailed description of your question"
           validators={[VALIDATOR_MINLENGTH(5)]}
           errorText="Please enter a valid description (at least 5 characters)."
           onInput={inputHandler}
@@ -134,6 +139,7 @@ const NewPlace = () => {
           element="input"
           type="text"
           label="Law Category"
+          placeholder = "Identify the area of Law Practice"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid law category."
           onInput={inputHandler}
@@ -143,6 +149,7 @@ const NewPlace = () => {
           element="input"
           type="text"
           label="Court Name"
+          placeholder = "Name of nearest your Court"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid Court Name."
           onInput={inputHandler}
@@ -150,7 +157,8 @@ const NewPlace = () => {
         <Input
           id="address"
           element="input"
-          label="Address"
+          label="Court House Address"
+          placeholder = "Provide your Court's Full Street Address"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid address."
           onInput={inputHandler}
