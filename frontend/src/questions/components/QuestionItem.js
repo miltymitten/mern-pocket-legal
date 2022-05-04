@@ -8,9 +8,9 @@ import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { AuthContext } from '../../shared/context/auth-context';
 import { useHttpClient } from '../../shared/hooks/http-hook';
-import './PlaceItem.css';
+import './QuestionItem.css';
 
-const PlaceItem = props => {
+const QuestionItem = props => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
@@ -32,7 +32,7 @@ const PlaceItem = props => {
     setShowConfirmModal(false);
     try {
       await sendRequest(
-        `http://localhost:5000/api/places/${props.id}`,
+        `http://localhost:5000/api/questions/${props.id}`,
         'DELETE'
       );
       props.onDelete(props.id);
@@ -46,8 +46,8 @@ const PlaceItem = props => {
         show={showMap}
         onCancel={closeMapHandler}
         header={props.address}
-        contentClass="place-item__modal-content"
-        footerClass="place-item__modal-actions"
+        contentClass="question-item__modal-content"
+        footerClass="question-item__modal-actions"
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
       >
         <div className="map-container">
@@ -61,7 +61,7 @@ const PlaceItem = props => {
         show={showConfirmModal}
         onCancel={cancelDeleteHandler}
         header="Are you sure?"
-        footerClass="place-item__modal-actions"
+        footerClass="question-item__modal-actions"
         footer={
           <React.Fragment>
             <Button inverse onClick={cancelDeleteHandler}>
@@ -78,13 +78,13 @@ const PlaceItem = props => {
           can't be undone thereafter.
         </p>
       </Modal>
-      <li className="place-item">
-        <Card className="place-item__content">
+      <li className="question-item">
+        <Card className="question-item__content">
           {isLoading && <LoadingSpinner asOverlay />}
-          <div className="place-item__image">
+          <div className="question-item__image">
             <img src={props.image} alt={props.title} />
           </div>
-          <div className="place-item__info">
+          <div className="question-item__info">
             <h1>Great Question.</h1>
             <br></br>
             <h2>Contact:</h2>
@@ -101,12 +101,12 @@ const PlaceItem = props => {
             <h3>{props.courtName}</h3>
             <h3>{props.address}</h3>
           </div>
-          <div className="place-item__actions">
+          <div className="question-item__actions">
             <Button inverse onClick={openMapHandler}>
               VIEW COURT HOUSE
             </Button>
             {auth.userId === props.creatorId && (
-              <Button to={`/places/${props.id}`}>EDIT</Button>
+              <Button to={`/questions/${props.id}`}>EDIT</Button>
             )}
 
             {auth.userId === props.creatorId && (
@@ -121,4 +121,4 @@ const PlaceItem = props => {
   );
 };
 
-export default PlaceItem;
+export default QuestionItem;

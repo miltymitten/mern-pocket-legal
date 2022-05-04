@@ -4,41 +4,41 @@ const mongoose = require('mongoose');
 
 const HttpError = require('../models/http-error');
 const getCoordsForAddress = require('../util/location');
-const Place = require('../models/place');
+const Question = require('../models/question');
 const User = require('../models/user');
 
-const getPlaceById = async (req, res, next) => {
-  const placeId = req.params.pid;
+const getQuestionById = async (req, res, next) => {
+  const questionId = req.params.pid;
 
-  let place;
+  let question;
   try {
-    place = await Place.findById(placeId);
+    question = await Question.findById(questionId);
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not find a place.',
+      'Something went wrong, could not find a question.',
       500
     );
     return next(error);
   }
 
-  if (!place) {
+  if (!question) {
     const error = new HttpError(
-      'Could not find place for the provided id.',
+      'Could not find question for the provided id.',
       404
     );
     return next(error);
   }
 
-  res.json({ place: place.toObject({ getters: true }) });
+  res.json({ question: question.toObject({ getters: true }) });
 };
 
-const getPlacesByUserId = async (req, res, next) => {
+const getQuestionsByUserId = async (req, res, next) => {
   const userId = req.params.uid;
 
-  // let places;
-  let userWithPlaces;
+  // let questions;
+  let userWithQuestions;
   try {
-    userWithPlaces = await User.findById(userId).populate('places');
+    userWithQuestions = await User.findById(userId).populate('questions');
   } catch (err) {
     const error = new HttpError(
       'Fetching questions failed, please try again later.',
@@ -47,17 +47,17 @@ const getPlacesByUserId = async (req, res, next) => {
     return next(error);
   }
 
-  // if (!places || places.length === 0) {
-  if (!userWithPlaces || userWithPlaces.places.length === 0) {
+  // if (!questions || questions.length === 0) {
+  if (!userWithQuestions || userWithQuestions.questions.length === 0) {
     return next(
       new HttpError('Could not find questions for the provided user id.', 404)
     );
   }
 
-  res.json({ places: userWithPlaces.places.map(place => place.toObject({ getters: true })) });
+  res.json({ questions: userWithQuestions.questions.map(question => question.toObject({ getters: true })) });
 };
 
-const createPlace = async (req, res, next) => {
+const createQuestion = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(
@@ -74,7 +74,7 @@ const createPlace = async (req, res, next) => {
     return next(error);
   }
 
-  const createdPlace = new Place({
+  const createdQuestion = new Question({
     firstName,
     lastName,
     contact,
@@ -110,8 +110,8 @@ const createPlace = async (req, res, next) => {
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
-    await createdPlace.save({ session: sess }); 
-    user.places.push(createdPlace); 
+    await createdQuestion.save({ session: sess }); 
+    user.questions.push(createdQuestion); 
     await user.save({ session: sess }); 
     await sess.commitTransaction();
   } catch (err) {
@@ -122,10 +122,10 @@ const createPlace = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ place: createdPlace });
+  res.status(201).json({ question: createdQuestion });
 };
 
-const updatePlace = async (req, res, next) => {
+const updateQuestion = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(
@@ -134,11 +134,11 @@ const updatePlace = async (req, res, next) => {
   }
 
   const { firstName, lastName, contact, title,description,typeofLaw, courtName} = req.body;
-  const placeId = req.params.pid;
+  const questionId = req.params.pid;
 
-  let place;
+  let question;
   try {
-    place = await Place.findById(placeId);
+    question = await Question.findById(questionId);
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not update question.',
@@ -146,16 +146,16 @@ const updatePlace = async (req, res, next) => {
     );
     return next(error);
   }
-  place.firstName = firstName;
-  place.lastName = lastName;
-  place.contact = contact;
-  place.title = title;
-  place.description = description;
-  place.typeofLaw = typeofLaw;
-  place.courtName = courtName;
+  question.firstName = firstName;
+  question.lastName = lastName;
+  question.contact = contact;
+  question.title = title;
+  question.description = description;
+  question.typeofLaw = typeofLaw;
+  question.courtName = courtName;
 
   try {
-    await place.save();
+    await question.save();
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not update question.',
@@ -164,15 +164,15 @@ const updatePlace = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ place: place.toObject({ getters: true }) });
+  res.status(200).json({ question: question.toObject({ getters: true }) });
 };
 
-const deletePlace = async (req, res, next) => {
-  const placeId = req.params.pid;
+const deleteQuestion = async (req, res, next) => {
+  const questionId = req.params.pid;
 
-  let place;
+  let question;
   try {
-    place = await Place.findById(placeId).populate('creator');
+    question = await Question.findById(questionId).populate('creator');
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not delete question.',
@@ -181,7 +181,7 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
-  if (!place) {
+  if (!question) {
     const error = new HttpError('Could not find question for this id.', 404);
     return next(error);
   }
@@ -189,9 +189,9 @@ const deletePlace = async (req, res, next) => {
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
-    await place.remove({session: sess});
-    place.creator.places.pull(place);
-    await place.creator.save({session: sess});
+    await question.remove({session: sess});
+    question.creator.questions.pull(question);
+    await question.creator.save({session: sess});
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
@@ -204,8 +204,8 @@ const deletePlace = async (req, res, next) => {
   res.status(200).json({ message: 'Deleted question.' });
 };
 
-exports.getPlaceById = getPlaceById;
-exports.getPlacesByUserId = getPlacesByUserId;
-exports.createPlace = createPlace;
-exports.updatePlace = updatePlace;
-exports.deletePlace = deletePlace;
+exports.getQuestionById = getQuestionById;
+exports.getQuestionsByUserId = getQuestionsByUserId;
+exports.createQuestion = createQuestion;
+exports.updateQuestion = updateQuestion;
+exports.deleteQuestion = deleteQuestion;
