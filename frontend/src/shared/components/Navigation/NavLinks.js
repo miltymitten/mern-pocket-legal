@@ -10,6 +10,9 @@ const NavLinks = props => {
   return (
     <ul className="nav-links">
       <li>
+        <a href = "https://legalhaven.herokuapp.com/" target="_blank">Legal Dictionary</a>
+      </li>
+      <li>
         <NavLink to="/" exact>
           All Users
         </NavLink>
