@@ -41,7 +41,7 @@ const getPlacesByUserId = async (req, res, next) => {
     userWithPlaces = await User.findById(userId).populate('places');
   } catch (err) {
     const error = new HttpError(
-      'Fetching places failed, please try again later.',
+      'Fetching questions failed, please try again later.',
       500
     );
     return next(error);
@@ -50,7 +50,7 @@ const getPlacesByUserId = async (req, res, next) => {
   // if (!places || places.length === 0) {
   if (!userWithPlaces || userWithPlaces.places.length === 0) {
     return next(
-      new HttpError('Could not find places for the provided user id.', 404)
+      new HttpError('Could not find questions for the provided user id.', 404)
     );
   }
 
@@ -94,7 +94,7 @@ const createPlace = async (req, res, next) => {
     user = await User.findById(creator);
   } catch (err) {
     const error = new HttpError(
-      'Creating place failed, please try again.',
+      'Creating question failed, please try again.',
       500
     );
     return next(error);
@@ -175,14 +175,14 @@ const deletePlace = async (req, res, next) => {
     place = await Place.findById(placeId).populate('creator');
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not delete place.',
+      'Something went wrong, could not delete question.',
       500
     );
     return next(error);
   }
 
   if (!place) {
-    const error = new HttpError('Could not find place for this id.', 404);
+    const error = new HttpError('Could not find question for this id.', 404);
     return next(error);
   }
 
@@ -201,7 +201,7 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
   
-  res.status(200).json({ message: 'Deleted place.' });
+  res.status(200).json({ message: 'Deleted question.' });
 };
 
 exports.getPlaceById = getPlaceById;

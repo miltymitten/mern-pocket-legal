@@ -156,7 +156,7 @@ const NewPlace = () => {
           onInput={inputHandler}
         />
         <Button type="submit" disabled={!formState.isValid}>
-          ADD PLACE
+          Ask Question
         </Button>
       </form>
     </React.Fragment>
