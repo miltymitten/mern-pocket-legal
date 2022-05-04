@@ -12,9 +12,9 @@ import {
 import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
-import './PlaceForm.css';
+import './QuestionForm.css';
 
-const NewPlace = () => {
+const NewQuestion = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
@@ -57,11 +57,11 @@ const NewPlace = () => {
 
   const history = useHistory();
 
-  const placeSubmitHandler = async event => {
+  const questionSubmitHandler = async event => {
     event.preventDefault();
     try {
       await sendRequest(
-        'http://localhost:5000/api/places',
+        'http://localhost:5000/api/questions',
         'POST',
         JSON.stringify({
           firstName: formState.inputs.firstName.value,
@@ -83,7 +83,7 @@ const NewPlace = () => {
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      <form className="place-form" onSubmit={placeSubmitHandler}>
+      <form className="question-form" onSubmit={questionSubmitHandler}>
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
           id="firstName"
@@ -149,7 +149,7 @@ const NewPlace = () => {
           element="input"
           type="text"
           label="Court Name"
-          placeholder = "Name of nearest your Court"
+          placeholder = "Name of court nearest to you"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid Court Name."
           onInput={inputHandler}
@@ -171,4 +171,4 @@ const NewPlace = () => {
   );
 };
 
-export default NewPlace;
+export default NewQuestion;

@@ -13,13 +13,13 @@ import {
 import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
-import './PlaceForm.css';
+import './QuestionForm.css';
 
-const UpdatePlace = () => {
+const UpdateQuestion = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const [loadedPlace, setLoadedPlace] = useState();
-  const placeId = useParams().placeId;
+  const [loadedQuestion, setLoadedQuestion] = useState();
+  const questionId = useParams().questionId;
   const history = useHistory();
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -57,40 +57,40 @@ const UpdatePlace = () => {
   );
 
   useEffect(() => {
-    const fetchPlace = async () => {
+    const fetchQuestion = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/places/${placeId}`
+          `http://localhost:5000/api/questions/${questionId}`
         );
-        setLoadedPlace(responseData.place);
+        setLoadedQuestion(responseData.question);
         setFormData(
           {
             firstName: {
-              value: responseData.place.firstName,
+              value: responseData.question.firstName,
               isValid: true
             },
             lastName: {
-              value: responseData.place.lastName,
+              value: responseData.question.lastName,
               isValid: true
             },
             contact: {
-              value: responseData.place.contact,
+              value: responseData.question.contact,
               isValid: true
             },
             title: {
-              value: responseData.place.title,
+              value: responseData.question.title,
               isValid: true
             },
             description: {
-              value: responseData.place.description,
+              value: responseData.question.description,
               isValid: true
             },
             typeofLaw: {
-              value: responseData.place.typeofLaw,
+              value: responseData.question.typeofLaw,
               isValid: true
             },
             courtName: {
-              value: responseData.place.courtName,
+              value: responseData.question.courtName,
               isValid: true
             }
           },
@@ -99,14 +99,14 @@ const UpdatePlace = () => {
 
       } catch (err) {}
     };
-    fetchPlace();
-  }, [sendRequest, placeId, setFormData]);
+    fetchQuestion();
+  }, [sendRequest, questionId, setFormData]);
 
-  const placeUpdateSubmitHandler = async event => {
+  const questionUpdateSubmitHandler = async event => {
     event.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:5000/api/places/${placeId}`,
+        `http://localhost:5000/api/questions/${questionId}`,
         'PATCH',
         JSON.stringify({
           firstName: formState.inputs.firstName.value,
@@ -121,7 +121,7 @@ const UpdatePlace = () => {
           'Content-Type': 'application/json'
         }
       );
-      history.push('/' + auth.userId + '/places');
+      history.push('/' + auth.userId + '/questions');
     } catch (err) {}
   };
 
@@ -133,11 +133,11 @@ const UpdatePlace = () => {
     );
   }
 
-  if (!loadedPlace && !error) {
+  if (!loadedQuestion && !error) {
     return (
       <div className="center">
         <Card>
-          <h2>Could not find place!</h2>
+          <h2>Could not find question!</h2>
         </Card>
       </div>
     );
@@ -146,8 +146,8 @@ const UpdatePlace = () => {
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      {!isLoading && loadedPlace && (
-        <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+      {!isLoading && loadedQuestion && (
+        <form className="question-form" onSubmit={questionUpdateSubmitHandler}>
           <Input
             id="firstName"
             element="input"
@@ -156,7 +156,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid First Name."
             onInput={inputHandler}
-            initialValue={loadedPlace.firstName}
+            initialValue={loadedQuestion.firstName}
             initialValid={true}
           />
           <Input
@@ -167,7 +167,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid Last Name."
             onInput={inputHandler}
-            initialValue={loadedPlace.lastName}
+            initialValue={loadedQuestion.lastName}
             initialValid={true}
           />
           <Input
@@ -178,7 +178,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid Email Address."
             onInput={inputHandler}
-            initialValue={loadedPlace.contact}
+            initialValue={loadedQuestion.contact}
             initialValid={true}
           />
           <Input
@@ -189,7 +189,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid title."
             onInput={inputHandler}
-            initialValue={loadedPlace.title}
+            initialValue={loadedQuestion.title}
             initialValid={true}
           />
           <Input
@@ -199,7 +199,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="Please enter a valid description (min. 5 characters)."
             onInput={inputHandler}
-            initialValue={loadedPlace.description}
+            initialValue={loadedQuestion.description}
             initialValid={true}
           />
           <Input
@@ -210,7 +210,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid Law Category."
             onInput={inputHandler}
-            initialValue={loadedPlace.typeofLaw}
+            initialValue={loadedQuestion.typeofLaw}
             initialValid={true}
           />
           <Input
@@ -221,7 +221,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid Court."
             onInput={inputHandler}
-            initialValue={loadedPlace.courtName}
+            initialValue={loadedQuestion.courtName}
             initialValid={true}
           />
           <Button type="submit" disabled={!formState.isValid}>
@@ -233,4 +233,4 @@ const UpdatePlace = () => {
   );
 };
 
-export default UpdatePlace;
+export default UpdateQuestion;

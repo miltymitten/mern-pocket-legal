@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import PlaceList from '../components/PlaceList';
+import QuestionList from '../components/QuestionList';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 
-const UserPlaces = () => {
-  const [loadedPlaces, setLoadedPlaces] = useState();
+const UserQuestions = () => {
+  const [loadedQuestions, setLoadedQuestions] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const userId = useParams().userId;
 
   useEffect(() => {
-    const fetchPlaces = async () => {
+    const fetchQuestions = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/places/user/${userId}`
+          `http://localhost:5000/api/questions/user/${userId}`
         );
-        setLoadedPlaces(responseData.places);
+        setLoadedQuestions(responseData.questions);
       } catch (err) {}
     };
-    fetchPlaces();
+    fetchQuestions();
   }, [sendRequest, userId]);
 
-  const placeDeletedHandler = deletedPlaceId => {
-    setLoadedPlaces(prevPlaces =>
-      prevPlaces.filter(place => place.id !== deletedPlaceId)
+  const questionDeletedHandler = deletedQuestionId => {
+    setLoadedQuestions(prevQuestions =>
+      prevQuestions.filter(question => question.id !== deletedQuestionId)
     );
   };
 
@@ -38,11 +38,11 @@ const UserPlaces = () => {
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && loadedPlaces && (
-        <PlaceList items={loadedPlaces} onDeletePlace={placeDeletedHandler} />
+      {!isLoading && loadedQuestions && (
+        <QuestionList items={loadedQuestions} onDeleteQuestion={questionDeletedHandler} />
       )}
     </React.Fragment>
   );
 };
 
-export default UserPlaces;
+export default UserQuestions;
