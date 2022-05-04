@@ -11,7 +11,7 @@
   height: 100%;
   text-decoration: none;
   padding: 0rem;
-  color: white;
+  color: #292929;
   background: #FFFFFF;
 }
 
@@ -26,9 +26,9 @@
 }
 
 .user-item__image {
-  width: 5rem;
+  width: 4rem;
   height: 5rem;
-  margin-right: 1rem;
+  margin-right: 2rem;
 }
 
 .user-item__info h2 {
