@@ -3,13 +3,20 @@
   text-align: center;
 }
 
+#auth-button {
+  text-align: right;
+  place-items: center;
+}
+
 .authentication {
   width: 90%;
   max-width: 25rem;
   margin: 7rem auto;
-  text-align: center;
-}
+  text-align: left;
+  color: #292929;
+  }
 
 .authentication form {
   margin-bottom: 1rem;
 }
+

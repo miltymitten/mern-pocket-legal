@@ -119,7 +119,7 @@ const Auth = () => {
             element="input"
             id="email"
             type="email"
-            label="E-Mail"
+            label="Email"
             validators={[VALIDATOR_EMAIL()]}
             errorText="Please enter a valid email address."
             onInput={inputHandler}
@@ -133,12 +133,12 @@ const Auth = () => {
             errorText="Please enter a valid password, at least 6 characters."
             onInput={inputHandler}
           />
-          <Button type="submit" disabled={!formState.isValid}>
-            {isLoginMode ? 'LOGIN' : 'SIGNUP'}
+          <Button id="auth-button" type="submit" disabled={!formState.isValid}>
+            {isLoginMode ? 'Login' : 'Signup'}
           </Button>
         </form>
-        <Button inverse onClick={switchModeHandler}>
-          SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
+        <Button id="auth-button" inverse onClick={switchModeHandler}>
+           {isLoginMode ? 'Signup' : 'Login'}
         </Button>
       </Card>
     </React.Fragment>

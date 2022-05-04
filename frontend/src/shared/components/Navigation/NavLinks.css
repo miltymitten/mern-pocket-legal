@@ -11,6 +11,7 @@
 }
 
 .nav-links li {
+  font-size: 20px;
   margin: 1rem;
 }
 
@@ -22,11 +23,17 @@
 }
 
 .nav-links a:hover,
+.nav-links a.hover {
+  color: #292929;
+  border-bottom: 3px solid #292929;
+}
+
 .nav-links a:active,
 .nav-links a.active {
-  background: #f8df00;
-  border-color: #292929;
+  /* background: #f8df00; */
+  /* border-color: #292929; */
   color: #292929;
+  font-weight: bold;
 }
 
 .nav-links button {
@@ -58,7 +65,7 @@
   }
 
   .nav-links a {
-    color: white;
+    color: #292929;
     text-decoration: none;
   }
 
@@ -66,11 +73,14 @@
     border: 1px solid white;
     color: white;
     background: transparent;
+    border-radius: 10px;
   }
   
   .nav-links button:hover,
   .nav-links button:active {
-    background: #f8df00;
-    color: #292929;
+    background: #fcc088;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
   }
 }
