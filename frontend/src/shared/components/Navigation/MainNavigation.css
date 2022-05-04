@@ -21,13 +21,13 @@
 }
 
 .main-navigation__title {
-  color: #292929;
+  color: white;
 }
 
 .main-navigation__title a {
   font-family: 'Roboto';
   text-decoration: none;
-  color: #292929;
+  color: white;
 }
 
 .main-navigation__header-nav {
