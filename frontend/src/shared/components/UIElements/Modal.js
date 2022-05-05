@@ -28,6 +28,7 @@ const ModalOverlay = props => {
   return ReactDOM.createPortal(content, document.getElementById('modal-hook'));
 };
 
+// component used to render a modal (similar to an alert) that pops up over the screen
 const Modal = props => {
   return (
     <React.Fragment>

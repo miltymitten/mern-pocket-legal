@@ -14,6 +14,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import './QuestionForm.css';
 
+// includes handlers for adding a new question and rendering the page to add a new question
 const NewQuestion = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();

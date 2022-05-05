@@ -3,6 +3,9 @@ import React, { useReducer, useEffect } from 'react';
 import { validate } from '../../util/validators';
 import './Input.css';
 
+// creating a reducer function that is used in useReducer hook 
+// useReducer hook is used to manage custom state logic
+// here its used to manage the state of the input field
 const inputReducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE':
@@ -22,6 +25,8 @@ const inputReducer = (state, action) => {
   }
 };
 
+// used for managing interactions with input field for forms like in NewQuestion
+// useReducer hook is used to manage custom state logic
 const Input = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue || '',
