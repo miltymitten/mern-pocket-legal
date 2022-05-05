@@ -2,7 +2,7 @@ const { validationResult } = require('express-validator');
 
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
-
+//retrieves users based on password otherwise output error
 const getUsers = async (req, res, next) => {
   let users;
   try {
@@ -16,7 +16,7 @@ const getUsers = async (req, res, next) => {
   }
   res.json({ users: users.map(user => user.toObject({ getters: true })) });
 };
-
+//validates signup of users as valid results
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -26,7 +26,7 @@ const signup = async (req, res, next) => {
   }
 
   const { name, email, password } = req.body;
-
+//user already exists and is found based on email, existing users cannot be reentered 
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -37,7 +37,7 @@ const signup = async (req, res, next) => {
     );
     return next(error);
   }
-
+//user already exists
   if (existingUser) {
     const error = new HttpError(
       'User exists already, please login instead.',
@@ -45,7 +45,7 @@ const signup = async (req, res, next) => {
     );
     return next(error);
   }
-
+//fields needed to created a new users
   const createdUser = new User({
     name,
     email,
@@ -53,7 +53,7 @@ const signup = async (req, res, next) => {
     password,
     questions: [],
   });
-
+//saving method of when a new user is created
   try {
     await createdUser.save();
   } catch (err) {
@@ -66,12 +66,12 @@ const signup = async (req, res, next) => {
 
   res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
-
+//
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   let existingUser;
-
+//find existing user based on entered email
   try {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
@@ -81,7 +81,7 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
-
+//checks user and password combination and whether its valid i.e. true combination
   if (!existingUser || existingUser.password !== password) {
     const error = new HttpError(
       'Invalid credentials, could not log you in.',
@@ -89,7 +89,7 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
-
+// valid entry 
   res.json({
     message: 'Logged in!',
     user: existingUser.toObject({ getters: true })

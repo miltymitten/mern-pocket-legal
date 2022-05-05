@@ -7,7 +7,7 @@ const fileUpload = require('../middleware/file-upload');
 const router = express.Router();
 
 router.get('/', usersController.getUsers);
-
+//route checks to see that users profiles are not empty when they create a profile
 router.post(
   '/signup',
   fileUpload.single('image'),
@@ -22,7 +22,7 @@ router.post(
   ],
   usersController.signup
 );
-
+//inputs are sent to userController
 router.post('/login', usersController.login);
 
 module.exports = router;

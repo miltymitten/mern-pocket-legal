@@ -12,9 +12,9 @@ const HttpError = require('./models/http-error');
 const app = express();
 
 app.use(bodyParser.json());
-
+//users are able to go locate images that are uploaded
 app.use('/uploads/images', express.static(path.join('uploads', 'images')));
-
+//app is able to make GET, POST, PATCH, DELETE Requests
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -25,15 +25,15 @@ app.use((req, res, next) => {
 
   next();
 });
-
+//able to go into questions routes and user routes
 app.use('/api/questions', questionsRoutes);
 app.use('/api/users', usersRoutes);
-
+//unable to locate route, error outputs
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this route.', 404);
   throw error;
 });
-
+//able to retrive requested file, otherwise error is sent
 app.use((error, req, res, next) => {
   if (req.file) {
     fs.unlink(req.file.path, err => {
@@ -46,7 +46,7 @@ app.use((error, req, res, next) => {
   res.status(error.code || 500);
   res.json({ message: error.message || 'An unknown error occurred!' });
 });
-
+//connection to database using mongoose 
 mongoose
   .connect(
     `mongodb+srv://dummy:test12345@cluster0.xglsh.mongodb.net/myPocketLegal?retryWrites=true&w=majority`

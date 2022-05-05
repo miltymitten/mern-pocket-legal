@@ -1,5 +1,5 @@
 import { useCallback, useReducer } from 'react';
-
+//checks form state and actions, logical will note if form is valid or action is valid 
 const formReducer = (state, action) => {
   switch (action.type) {
     case 'INPUT_CHANGE':
@@ -31,13 +31,13 @@ const formReducer = (state, action) => {
       return state;
   }
 };
-
+//ability to use form and add inputs
 export const useForm = (initialInputs, initialFormValidity) => {
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: initialInputs,
     isValid: initialFormValidity
   });
-
+//pass an inline to handle inputs and their validity
   const inputHandler = useCallback((id, value, isValid) => {
     dispatch({
       type: 'INPUT_CHANGE',
@@ -46,7 +46,7 @@ export const useForm = (initialInputs, initialFormValidity) => {
       inputId: id
     });
   }, []);
-
+//pass inline to check valid form inputs
   const setFormData = useCallback((inputData, formValidity) => {
     dispatch({
       type: 'SET_DATA',
