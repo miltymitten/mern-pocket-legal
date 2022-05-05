@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 
 import './Map.css';
 
+// used to render google maps API content
 const Map = props => {
   const mapRef = useRef();
   

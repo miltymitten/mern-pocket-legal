@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
 import './NavLinks.css';
 
+// renders links on the navigation bar, changing depending on the user's authentication status
 const NavLinks = props => {
   const auth = useContext(AuthContext);
 
@@ -17,6 +18,7 @@ const NavLinks = props => {
           All Users
         </NavLink>
       </li>
+      {/* if user is logged in, then display the my questions link */}
       {auth.isLoggedIn && (
         <li>
           <NavLink to={`/${auth.userId}/questions`}>My Questions</NavLink>
@@ -27,6 +29,7 @@ const NavLinks = props => {
           <NavLink to="/questions/new">Ask A Question</NavLink>
         </li>
       )}
+      {/* if a user is not logged in, show the login link */}
       {!auth.isLoggedIn && (
         <li>
           <NavLink to="/auth">Login</NavLink>

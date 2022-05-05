@@ -10,16 +10,19 @@ import { AuthContext } from '../../shared/context/auth-context';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import './QuestionItem.css';
 
+// renders an individual question on the page in a list of questions
 const QuestionItem = props => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  // handlers for google maps UI
   const openMapHandler = () => setShowMap(true);
 
   const closeMapHandler = () => setShowMap(false);
 
+  // handlers for question deletion UI
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
   };
@@ -28,6 +31,7 @@ const QuestionItem = props => {
     setShowConfirmModal(false);
   };
 
+  // sends a DELETE request for a specific question using its question ID
   const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
     try {
@@ -39,6 +43,8 @@ const QuestionItem = props => {
     } catch (err) {}
   };
 
+  // renders an individual question in a card with handlers for cancelling out of the modal
+  // and rendering a modal for deleting a question
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
@@ -50,6 +56,7 @@ const QuestionItem = props => {
         footerClass="question-item__modal-actions"
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
       >
+        {/* renders the google maps UI */}
         <div className="map-container">
           {/*<Map center={props.coordinates} zoom={16} />*/}
 
@@ -79,6 +86,7 @@ const QuestionItem = props => {
         </p>
       </Modal>
       <li className="question-item">
+        {/* renders a card for an individual question */}
         <Card className="question-item__content">
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="question-item__image">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './Button.css';
 
+// used to render buttons throughout the website that can handle both href and to links
 const Button = props => {
   if (props.href) {
     return (
@@ -27,6 +28,7 @@ const Button = props => {
       </Link>
     );
   }
+  // renders different buttons depending on the classname (default, inverse, or danger) 
   return (
     <button
       className={`button button--${props.size || 'default'} ${props.inverse &&

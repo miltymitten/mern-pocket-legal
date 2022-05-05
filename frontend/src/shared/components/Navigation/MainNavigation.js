@@ -7,6 +7,7 @@ import SideDrawer from './SideDrawer';
 import Backdrop from '../UIElements/Backdrop';
 import './MainNavigation.css';
 
+// render the navigation bar using the sidedrawer, mainheader, and navlinks components
 const MainNavigation = props => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
@@ -20,6 +21,7 @@ const MainNavigation = props => {
 
   return (
     <React.Fragment>
+      {/* if side bar is open, render backdrop */}
       {drawerIsOpen && <Backdrop onClick={closeDrawerHandler} />}
       <SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
         <nav className="main-navigation__drawer-nav">
@@ -27,6 +29,7 @@ const MainNavigation = props => {
         </nav>
       </SideDrawer>
 
+      {/* render navigation bar */}
       <MainHeader>
         <button
           className="main-navigation__menu-btn"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
+// import necessary components
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import Card from '../../shared/components/UIElements/Card';
@@ -15,6 +16,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import './QuestionForm.css';
 
+// includes handlers for updating a question and renders page for updating/editing a question
 const UpdateQuestion = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -56,6 +58,8 @@ const UpdateQuestion = () => {
     false
   );
 
+  // sends a GET request for a specific question using a question ID
+  // fills out input fields with data from that question
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
@@ -102,6 +106,7 @@ const UpdateQuestion = () => {
     fetchQuestion();
   }, [sendRequest, questionId, setFormData]);
 
+  // sends a PATCH request to update data in the database using updated data
   const questionUpdateSubmitHandler = async event => {
     event.preventDefault();
     try {
@@ -125,6 +130,7 @@ const UpdateQuestion = () => {
     } catch (err) {}
   };
 
+  // renders loading icon while page is loading
   if (isLoading) {
     return (
       <div className="center">
@@ -133,6 +139,7 @@ const UpdateQuestion = () => {
     );
   }
 
+  // renders error as needed
   if (!loadedQuestion && !error) {
     return (
       <div className="center">
@@ -143,6 +150,7 @@ const UpdateQuestion = () => {
     );
   }
 
+  // renders the update question page with an <Input> for each input field 
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />

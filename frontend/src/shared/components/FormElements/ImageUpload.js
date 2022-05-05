@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import Button from './Button';
 import './ImageUpload.css';
 
+// Allows file and preview to be set and validates
 const ImageUpload = props => {
   const [file, setFile] = useState();
   const [previewUrl, setPreviewUrl] = useState();
@@ -10,6 +11,7 @@ const ImageUpload = props => {
 
   const filePickerRef = useRef();
 
+  // able to load the file and provide a preview of the loaded file
   useEffect(() => {
     if (!file) {
       return;
@@ -21,6 +23,7 @@ const ImageUpload = props => {
     fileReader.readAsDataURL(file);
   }, [file]);
 
+  // allows only one file to be uploaded and set to the file, other it's not valid
   const pickedHandler = event => {
     let pickedFile;
     let fileIsValid = isValid;
@@ -36,10 +39,12 @@ const ImageUpload = props => {
     props.onInput(props.id, pickedFile, fileIsValid);
   };
 
+  // allows an image to be selected
   const pickImageHandler = () => {
     filePickerRef.current.click();
   };
 
+  // renders the UI on the account creation page and determines what kind of file is accepted, sets ID
   return (
     <div className="form-control">
       <input
@@ -50,6 +55,7 @@ const ImageUpload = props => {
         accept=".jpg,.png,.jpeg"
         onChange={pickedHandler}
       />
+      {/* image that's uploaded is rendered in the browser */}
       <div className={`image-upload ${props.center && 'center'}`}>
         <div className="image-upload__preview">
           {previewUrl && <img src={previewUrl} alt="Preview" />}

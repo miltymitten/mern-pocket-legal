@@ -2,6 +2,7 @@ import React from 'react';
 
 import './Avatar.css';
 
+// renders an avatar (image) for individual users
 const Avatar = props => {
   return (
     <div className={`avatar ${props.className}`} style={props.style}>

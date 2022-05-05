@@ -3,6 +3,7 @@ import React from 'react';
 import Modal from './Modal';
 import Button from '../FormElements/Button';
 
+// used to render an error modal that renders when an error is generated
 const ErrorModal = props => {
   return (
     <Modal

@@ -4,6 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import './SideDrawer.css';
 
+// renders a side drawer that shows up when the screen is narrow
 const SideDrawer = props => {
   const content = (
     <CSSTransition
