@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/:pid', questionsControllers.getQuestionById);
 
 router.get('/user/:uid', questionsControllers.getQuestionsByUserId);
-
+//route checks to see that question form input fields are not empty
 router.post(
   '/',
   [
@@ -37,7 +37,7 @@ router.post(
   ],
   questionsControllers.createQuestion
 );
-
+// if users makes an update of the form, form is checked to see input fields are not empty
 router.patch(
   '/:pid',
   [
